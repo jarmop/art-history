@@ -4,6 +4,9 @@ import { useImages } from './wikipedia'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Artist, artists } from './artists'
 
+const getArtistLabel = ({ name, birth, death }: Artist) =>
+  `${name} ${birth} - ${death}`
+
 function App() {
   const [activeArtist, setActiveArtist] = useState<Artist>(artists[0])
   const { isPending, error, thumbUrls } = useImages(activeArtist.id)
@@ -35,13 +38,16 @@ function App() {
                 key={artist.id}
                 onClick={() => setActiveArtist(artist)}
                 className={artist.id === activeArtist.id ? 'active' : ''}
-              >{`${artist.name} ${artist.birth} - ${artist.death}`}</button>
+              >
+                {getArtistLabel(artist)}
+              </button>
             ))}
           </div>
         </div>
       ))}
 
-      <h1>{activeArtist.name}</h1>
+      <h1>{getArtistLabel(activeArtist)}</h1>
+
       <div className="gallery">
         {thumbUrls.map((thumbUrl) => (
           <LazyLoadImage

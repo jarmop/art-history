@@ -15,15 +15,14 @@ button {
 }
 
 .gallery {
-  background: #fafafa;
   display: grid;
-  grid-template-columns: 400px 400px 400px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 3px;
 }
 
 .gallery-item {
   background: #eaeaea;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   object-fit: contain;
 }
