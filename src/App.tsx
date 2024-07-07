@@ -1,55 +1,57 @@
 import { useState } from 'react'
 import './App.css'
-import { ArtistId, useImages } from './wikipedia'
+import { useImages } from './wikipedia'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-
-type Artist = {
-  id: ArtistId,
-  name: string,
-  birth: number,
-  death: number,
-}
-
-const artists: Artist[] = [
-  {
-    id: 'Pieter_Bruegel_the_Elder',
-    name: 'Pieter Bruegel',
-    birth: 1525,
-    death: 1569,
-  },
-  {
-    id: 'Caravaggio',
-    name: 'Caravaggio',
-    birth: 1571,
-    death: 1610,
-  },
-]
+import { Artist, artists } from './artists'
 
 function App() {
-  const [artist, setArtist] = useState<ArtistId>('Pieter_Bruegel_the_Elder')
-  const { isPending, error, thumbUrls } = useImages(artist)
+  const [activeArtist, setActiveArtist] = useState<Artist>(artists[0])
+  const { isPending, error, thumbUrls } = useImages(activeArtist.id)
 
   if (isPending) return 'Loading...'
 
   if (error) return 'An error has occurred: ' + error.message
 
+  const artistsByCentury = artists.reduce<Record<number, Artist[]>>(
+    (acc, artist) => {
+      const artistCentury = Math.floor(artist.birth / 100) * 100
+      if (!acc[artistCentury]) {
+        acc[artistCentury] = []
+      }
+      acc[artistCentury].push(artist)
+      return acc
+    },
+    {}
+  )
+
   return (
-    <div>
-      {artists.map(({ id, name, birth, death }) => (
-        <button
-          onClick={() => setArtist(id)}
-        >{`${name} ${birth} - ${death}`}</button>
+    <>
+      {Object.entries(artistsByCentury).map(([century, artists]) => (
+        <div key={century} className="menu-row">
+          <div className="century">{century}</div>
+          <div>
+            {artists.map((artist) => (
+              <button
+                key={artist.id}
+                onClick={() => setActiveArtist(artist)}
+                className={artist.id === activeArtist.id ? 'active' : ''}
+              >{`${artist.name} ${artist.birth} - ${artist.death}`}</button>
+            ))}
+          </div>
+        </div>
       ))}
+
+      <h1>{activeArtist.name}</h1>
       <div className="gallery">
         {thumbUrls.map((thumbUrl) => (
-            <LazyLoadImage
-              key={thumbUrl}
-              className="gallery-item"
-              src={thumbUrl}
-            />
+          <LazyLoadImage
+            key={thumbUrl}
+            className="gallery-item"
+            src={thumbUrl}
+          />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
