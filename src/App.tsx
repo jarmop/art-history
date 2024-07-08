@@ -25,6 +25,7 @@ function App() {
   const orderedArtists = Object.values(artistsByCentury).flat()
   const [activeArtist, setActiveArtist] = useState<Artist>(orderedArtists[0])
   const [activeImage, setActiveImage] = useState<number>()
+  const [showFullImage, setShowFullImage] = useState(false)
   const { isPending, error, images } = useImages(activeArtist.id)
 
   useEffect(() => {
@@ -76,42 +77,61 @@ function App() {
   return (
     <>
       {activeImage !== undefined && (
-        <img
-          src={images[activeImage].url}
-          className="active-image"
-          onClick={() => setActiveImage(undefined)}
-        />
+        <div
+          className={'active-image-container' + (showFullImage ? ' full' : '')}
+          onClick={() => {
+            setActiveImage(undefined)
+            setShowFullImage(false)
+          }}
+        >
+          <img
+            src={
+              showFullImage
+                ? images[activeImage].url
+                : images[activeImage].largeUrl
+            }
+            className={'active-image' + (showFullImage ? ' full' : '')}
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowFullImage((b) => !b)
+            }}
+          />
+        </div>
       )}
 
-      {Object.entries(artistsByCentury).map(([century, artists]) => (
-        <div key={century} className="menu-row">
-          <div className="century">{century}</div>
-          <div>
-            {artists.map((artist) => (
-              <button
-                key={artist.id}
-                onClick={() => setActiveArtist(artist)}
-                className={artist.id === activeArtist.id ? 'active' : ''}
-              >
-                {getArtistLabel(artist)}
-              </button>
+      {!showFullImage && (
+        <>
+          {Object.entries(artistsByCentury).map(([century, artists]) => (
+            <div key={century} className="menu-row">
+              <div className="century">{century}</div>
+              <div>
+                {artists.map((artist) => (
+                  <button
+                    key={artist.id}
+                    onClick={() => setActiveArtist(artist)}
+                    className={artist.id === activeArtist.id ? 'active' : ''}
+                  >
+                    {getArtistLabel(artist)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <h1>{getArtistLabel(activeArtist)}</h1>
+
+          <div className="gallery">
+            {images.map((image, i) => (
+              <LazyLoadImage
+                key={image.thumbUrl}
+                className="gallery-item"
+                src={image.thumbUrl}
+                onClick={() => setActiveImage(i)}
+              />
             ))}
           </div>
-        </div>
-      ))}
-
-      <h1>{getArtistLabel(activeArtist)}</h1>
-
-      <div className="gallery">
-        {images.map((image, i) => (
-          <LazyLoadImage
-            key={image.thumburl}
-            className="gallery-item"
-            src={image.thumburl}
-            onClick={() => setActiveImage(i)}
-          />
-        ))}
-      </div>
+        </>
+      )}
     </>
   )
 }
