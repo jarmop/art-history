@@ -36,6 +36,36 @@ export const artists = [
     death: 1430,
   },
   {
+    id: 'Gentile_da_Fabriano',
+    name: 'Gentile da Fabriano',
+    birth: 1370,
+    death: 1427,
+  },
+  {
+    id: 'Michelino_da_Besozzo',
+    name: 'Michelino da Besozzo',
+    birth: 1370,
+    death: 1455,
+  },
+  {
+    id: 'Robert_Campin',
+    name: 'Robert Campin',
+    birth: 1375,
+    death: 1444,
+  },
+  {
+    id: 'Pisanello',
+    name: 'Pisanello',
+    birth: 1380,
+    death: 1455,
+  },
+  {
+    id: 'Jan_van_Eyck',
+    name: 'Jan van Eyck',
+    birth: 1380,
+    death: 1441,
+  },
+  {
     id: 'Limbourg_brothers',
     name: 'Limbourg brothers',
     birth: 1385,
