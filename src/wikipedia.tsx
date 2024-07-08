@@ -6,7 +6,12 @@ const imageUrlPrefix = `${apiRoot}action=query&prop=imageinfo&formatversion=2&ii
 const titlesLimit = 50
 
 type ImageResponseData = {
-  query: { pages: [{ imageinfo: [{ thumburl: string }] }] }
+  query: { pages: [{ imageinfo: [{ thumburl: string; url: string }] }] }
+}
+
+type ImageData = {
+  thumburl: string
+  url: string
 }
 
 export const useImages = (artistId: Artist['id']) => {
@@ -31,16 +36,22 @@ export const useImages = (artistId: Artist['id']) => {
           return fetch(imageUrl)
             .then((res) => res.json())
             .then((data: ImageResponseData) => {
-              const thumbUrls = data.query.pages.map(
-                (page) => page.imageinfo[0]?.thumburl
-              )
+              const imageDataMap: Record<string, ImageData> = {}
+              data.query.pages.forEach((page) => {
+                const imageData = page.imageinfo[0]
+                if (imageData && !imageDataMap[imageData.thumburl]) {
+                  imageDataMap[imageData.thumburl] = imageData
+                }
+              })
 
-              return new Promise((resolve) => resolve([...new Set(thumbUrls)]))
+              return new Promise((resolve) =>
+                resolve(Object.values(imageDataMap))
+              )
             })
         }),
     staleTime: Infinity,
     retry: false,
   })
 
-  return { isPending, error, thumbUrls: data as string[] }
+  return { isPending, error, images: data as ImageData[] }
 }

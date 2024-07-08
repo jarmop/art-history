@@ -20,7 +20,10 @@ button {
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--gallery-item-size), 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--gallery-item-size), 1fr)
+  );
   grid-row-gap: 1px;
 }
 
@@ -29,4 +32,12 @@ button {
   width: var(--gallery-item-size);
   height: var(--gallery-item-size);
   object-fit: contain;
+}
+
+.active-image {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: rgba(0, 0, 0, 0.9);
 }
