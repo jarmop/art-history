@@ -440,3 +440,17 @@ export const artists = [
 ] as const
 
 export type Artist = (typeof artists)[number]
+
+export const artistsByCentury = artists.reduce<Record<string, Artist[]>>(
+  (acc, artist) => {
+    const artistCentury = Math.floor(artist.birth / 100) * 100
+    if (!acc[artistCentury]) {
+      acc[artistCentury] = []
+    }
+    acc[artistCentury].push(artist)
+    return acc
+  },
+  {}
+)
+
+export const orderedArtists = Object.values(artistsByCentury).flat()
