@@ -13,7 +13,7 @@ export const useImages = (artistId: Artist['id']) => {
     queryKey: ['images', artistId],
     queryFn: () =>
       fetchImageTitles(artistId).then((titles) =>
-        Promise.all([fetchImages(titles, 200), fetchImages(titles, 800)]).then(
+        Promise.all([fetchImages(titles, 200, 200), fetchImages(titles, 1200, 1920)]).then(
           ([thumbImages, largeImages]) => {
             return Object.keys(thumbImages).map((url) => ({
               url: url,

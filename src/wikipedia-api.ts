@@ -1,3 +1,5 @@
+const getUriList = (args: string[]) => encodeURIComponent(args.join('|'))
+
 const apiRoot = 'https://en.wikipedia.org/w/api.php?origin=*&format=json&'
 const imagesUrlPrefix = `${apiRoot}action=query&prop=imageinfo&formatversion=2&iiprop=url&iilimit=1`
 const titlesLimit = 50
@@ -23,9 +25,13 @@ export const fetchImageTitles = (artistId: string) => {
     })
 }
 
-export const fetchImages = (titles: string[], width: number) => {
-  const titlesString = encodeURIComponent(titles.slice(0, titlesLimit).join('|'))
-  const imagesUrl = `${imagesUrlPrefix}&titles=${titlesString}&iiurlwidth=${width}`
+export const fetchImages = (
+  titles: string[],
+  width: number,
+  height: number
+) => {
+  const titlesString = getUriList(titles.slice(0, titlesLimit))
+  const imagesUrl = `${imagesUrlPrefix}&titles=${titlesString}&iiurlwidth=${width}&iiurlheight=${height}`
 
   return fetch(imagesUrl)
     .then((res) => res.json())

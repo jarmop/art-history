@@ -72,6 +72,12 @@ export const artists = [
     death: 1416,
   },
   {
+    id: 'Donatello',
+    name: 'Donatello',
+    birth: 1386,
+    death: 1466,
+  },
+  {
     id: 'Fra_Angelico',
     name: 'Fra Angelico',
     birth: 1395,
@@ -96,6 +102,12 @@ export const artists = [
     death: 1428,
   },
   {
+    id: 'Carlo_Crivelli',
+    name: 'Carlo Crivelli',
+    birth: 1430,
+    death: 1476,
+  },
+  {
     id: 'Andrea_Mantegna',
     name: 'Andrea Mantegna',
     birth: 1431,
@@ -112,6 +124,12 @@ export const artists = [
     name: 'Domenico Ghirlandaio',
     birth: 1448,
     death: 1494,
+  },
+  {
+    id: 'Hieronymus_Bosch',
+    name: 'Hieronymus Bosch',
+    birth: 1450,
+    death: 1516,
   },
   {
     id: 'Leonardo_da_Vinci',
@@ -412,6 +430,12 @@ export const artists = [
     name: 'Eero Järnefelt',
     birth: 1863,
     death: 1937,
+  },
+  {
+    id: 'Edvard_Munch',
+    name: 'Edvard Munch',
+    birth: 1863,
+    death: 1944,
   },
   {
     id: 'Akseli_Gallen-Kallela',
