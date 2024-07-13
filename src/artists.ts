@@ -110,6 +110,12 @@ export const artists = [
     death: 1476,
   },
   {
+    id: 'Gentile_Bellini',
+    name: 'Gentile Bellini',
+    birth: 1429,
+    death: 1507,
+  },
+  {
     id: 'Andrea_Mantegna',
     name: 'Andrea Mantegna',
     birth: 1431,
@@ -152,10 +158,34 @@ export const artists = [
     death: 1520,
   },
   {
+    id: 'Titian',
+    name: 'Titian',
+    birth: 1488,
+    death: 1576,
+  },
+  {
+    id: 'Giorgio_Vasari',
+    name: 'Giorgio Vasari',
+    birth: 1511,
+    death: 1574,
+  },
+  {
+    id: 'Tintoretto',
+    name: 'Tintoretto',
+    birth: 1518,
+    death: 1594,
+  },
+  {
     id: 'Pieter_Bruegel_the_Elder',
     name: 'Pieter Bruegel',
     birth: 1525,
     death: 1569,
+  },
+  {
+    id: 'El_Greco',
+    name: 'El Greco',
+    birth: 1541,
+    death: 1614,
   },
   {
     id: 'Caravaggio',
@@ -186,6 +216,12 @@ export const artists = [
     name: 'Georges de La Tour',
     birth: 1593,
     death: 1652,
+  },
+  {
+    id: 'Gian_Lorenzo_Bernini',
+    name: 'Gian Lorenzo Bernini',
+    birth: 1598,
+    death: 1680,
   },
   {
     id: 'Diego_Velázquez',
