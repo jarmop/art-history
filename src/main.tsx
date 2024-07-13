@@ -5,6 +5,7 @@ import './index.css'
 import { QueryClient } from '@tanstack/react-query'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const MAX_CACHE_AGE = Infinity
 
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       persistOptions={{ persister, maxAge: MAX_CACHE_AGE }}
     >
       <App />
+      <ReactQueryDevtools />
     </PersistQueryClientProvider>
   </React.StrictMode>
 )
