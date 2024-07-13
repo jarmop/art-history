@@ -9,7 +9,7 @@ export function useKeyboard(
   orderedArtists: Artist[],
   images: ImageData[],
   setActiveImage: React.Dispatch<React.SetStateAction<number | undefined>>,
-  setActiveArtist: React.Dispatch<React.SetStateAction<Artist>>
+  setActiveArtist: (getNewArtist: (artist: Artist) => Artist) => void 
 ) {
   useEffect(() => {
     const resetActiveImage = () =>

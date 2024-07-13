@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom'
+
 export const artists = [
   {
     id: 'Cimabue',
@@ -465,9 +467,13 @@ export const artists = [
 
 export type Artist = (typeof artists)[number]
 
+export function getArtistCentury(artist: Artist) {
+  return Math.floor(artist.birth / 100) * 100
+}
+
 export const artistsByCentury = artists.reduce<Record<string, Artist[]>>(
   (acc, artist) => {
-    const artistCentury = Math.floor(artist.birth / 100) * 100
+    const artistCentury = getArtistCentury(artist)
     if (!acc[artistCentury]) {
       acc[artistCentury] = []
     }
@@ -478,3 +484,19 @@ export const artistsByCentury = artists.reduce<Record<string, Artist[]>>(
 )
 
 export const orderedArtists = Object.values(artistsByCentury).flat()
+
+export function getArtistLabel({ name, birth, death }: Artist) {
+  return `${name} ${birth}-${death}`
+}
+
+function setActiveArtist(artist: Artist) {
+  window.location.href = `../art-history/${artist.id}`
+}
+
+export function useActiveArtist() {
+  const { artistId } = useParams()
+  const activeArtist =
+    artistId && artists.find((artist) => artist.id === artistId)
+
+  return { activeArtist: activeArtist || artists[0], setActiveArtist }
+}

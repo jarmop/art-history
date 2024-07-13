@@ -1,19 +1,30 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useImages } from './images'
-import { Artist, artistsByCentury, orderedArtists } from './artists'
+import {
+  Artist,
+  getArtistLabel,
+  orderedArtists,
+  useActiveArtist,
+} from './artists'
 import { useKeyboard } from './useKeyboard'
 import { ActiveImage } from './ActiveImage'
-import { getArtistLabel } from './util'
 import { Menu } from './Menu'
 import { Gallery } from './Gallery'
 
 function App() {
-  const [activeArtist, setActiveArtist] = useState<Artist>(orderedArtists[0])
+  const { activeArtist, setActiveArtist } = useActiveArtist()
   const [activeImage, setActiveImage] = useState<number>()
   const [showFullImage, setShowFullImage] = useState(false)
   const { isPending, error, images } = useImages(activeArtist.id)
 
-  useKeyboard(orderedArtists, images, setActiveImage, setActiveArtist)
+  const setActiveArtistCb = useCallback(
+    (getNewArtist: (artist: Artist) => Artist) => {
+      setActiveArtist(getNewArtist(activeArtist))
+    },
+    [activeArtist, setActiveArtist]
+  )
+
+  useKeyboard(orderedArtists, images, setActiveImage, setActiveArtistCb)
 
   if (isPending) return 'Loading...'
 
@@ -33,11 +44,7 @@ function App() {
 
       {!showFullImage && (
         <>
-          <Menu
-            artistsByCentury={artistsByCentury}
-            setActiveArtist={setActiveArtist}
-            activeArtist={activeArtist}
-          />
+          <Menu />
 
           <h1 className="m-4 text-4xl">{getArtistLabel(activeArtist)}</h1>
 

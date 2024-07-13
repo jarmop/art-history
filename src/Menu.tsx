@@ -1,33 +1,48 @@
-import { Artist } from './artists'
-import { getArtistLabel } from './util'
-
-interface MenuProps {
-  artistsByCentury: Record<string, Artist[]>
-  setActiveArtist: React.Dispatch<React.SetStateAction<Artist>>
-  activeArtist: Artist
-}
-
-export function Menu({
+import { useState } from 'react'
+import {
   artistsByCentury,
-  setActiveArtist,
-  activeArtist,
-}: MenuProps) {
-  return Object.entries(artistsByCentury).map(([century, artists]) => (
-    <div key={century} className="flex">
-      <div className="m-1">{century}</div>
+  getArtistCentury,
+  getArtistLabel,
+  useActiveArtist,
+} from './artists'
+import { Link } from 'react-router-dom'
+
+export function Menu() {
+  const { activeArtist } = useActiveArtist()
+
+  const [selectedCentury, setSelectedCentury] = useState(() =>
+    getArtistCentury(activeArtist)
+  )
+
+  const artists = artistsByCentury[selectedCentury]
+
+  return (
+    <div>
+      {Object.keys(artistsByCentury).map((century) => (
+        <button
+          key={century}
+          className={
+            'm-1' + (Number(century) === selectedCentury ? ' bg-gray-200' : '')
+          }
+          onClick={() => setSelectedCentury(Number(century))}
+        >
+          {century}
+        </button>
+      ))}
       <div>
         {artists.map((artist) => (
-          <button
+          <Link
             key={artist.id}
-            onClick={() => setActiveArtist(artist)}
+            to={`../art-history/${artist.id}`}
             className={
-              'm-1' + (artist.id === activeArtist.id ? ' bg-gray-500' : '')
+              'm-1 px-2 bg-gray-200 inline-block rounded-xl' +
+              (artist.id === activeArtist.id ? ' bg-gray-400' : '')
             }
           >
             {getArtistLabel(artist)}
-          </button>
+          </Link>
         ))}
       </div>
     </div>
-  ))
+  )
 }
