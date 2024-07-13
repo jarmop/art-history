@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 import { useImages } from './images'
 import { Artist, artistsByCentury, orderedArtists } from './artists'
 import { useKeyboard } from './useKeyboard'
@@ -40,7 +39,7 @@ function App() {
             activeArtist={activeArtist}
           />
 
-          <h1>{getArtistLabel(activeArtist)}</h1>
+          <h1 className="m-4 text-4xl">{getArtistLabel(activeArtist)}</h1>
 
           <Gallery images={images} setActiveImage={setActiveImage} />
         </>

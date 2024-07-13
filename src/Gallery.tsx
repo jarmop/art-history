@@ -8,11 +8,11 @@ interface GalleryProps {
 
 export function Gallery({ images, setActiveImage }: GalleryProps) {
   return (
-    <div className="gallery">
+    <div className="grid grid-cols-gallery gap-[1px] justify-items-center">
       {images.map((image, i) => (
         <LazyLoadImage
           key={image.thumbUrl}
-          className="gallery-item"
+          className="w-thumb h-thumb bg-gray-200 object-contain cursor-pointer"
           src={image.thumbUrl}
           onClick={() => setActiveImage(i)}
         />

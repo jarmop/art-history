@@ -1,4 +1,4 @@
-import { ImageData } from "./images"
+import { ImageData } from './images'
 
 interface ActiveImageProps {
   showFullImage: boolean
@@ -17,7 +17,11 @@ export function ActiveImage({
 }: ActiveImageProps) {
   return (
     <div
-      className={'active-image-container' + (showFullImage ? ' full' : '')}
+      className={
+        showFullImage
+          ? 'absolute min-w-full min-h-full'
+          : 'fixed flex w-full h-full bg-black/90 justify-center'
+      }
       onClick={() => {
         setActiveImage(undefined)
         setShowFullImage(false)
@@ -27,7 +31,12 @@ export function ActiveImage({
         src={
           showFullImage ? images[activeImage].url : images[activeImage].largeUrl
         }
-        className={'active-image' + (showFullImage ? ' full' : '')}
+        className={
+          'self-center max-w-none ' +
+          (showFullImage
+            ? 'min-w-full min-h-full cursor-zoom-out'
+            : 'max-w-full max-h-full cursor-zoom-in')
+        }
         onClick={(e) => {
           e.stopPropagation()
           setShowFullImage((b) => !b)

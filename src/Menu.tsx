@@ -13,14 +13,16 @@ export function Menu({
   activeArtist,
 }: MenuProps) {
   return Object.entries(artistsByCentury).map(([century, artists]) => (
-    <div key={century} className="menu-row">
-      <div className="century">{century}</div>
+    <div key={century} className="flex">
+      <div className="m-1">{century}</div>
       <div>
         {artists.map((artist) => (
           <button
             key={artist.id}
             onClick={() => setActiveArtist(artist)}
-            className={artist.id === activeArtist.id ? 'active' : ''}
+            className={
+              'm-1' + (artist.id === activeArtist.id ? ' bg-gray-500' : '')
+            }
           >
             {getArtistLabel(artist)}
           </button>
