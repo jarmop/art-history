@@ -26,7 +26,7 @@ export function getArtistLabel({ name, birth, death }: Artist) {
 }
 
 function setActiveArtist(artist: Artist) {
-  window.location.href = `../art-history/${artist.id}`
+  window.location.href = `../#/${artist.id}`
 }
 
 export function useActiveArtistId() {

@@ -6,7 +6,7 @@ import { QueryClient } from '@tanstack/react-query'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 const MAX_CACHE_AGE = Infinity
 
@@ -22,13 +22,13 @@ const persister = createSyncStoragePersister({
   storage: window.localStorage,
 })
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: '/art-history',
+    path: '/*',
     element: <App />,
   },
   {
-    path: '/art-history/:artistId',
+    path: '/:artistId',
     element: <App />,
   },
 ])

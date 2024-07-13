@@ -33,7 +33,7 @@ export function Menu() {
         {artists.map((artist) => (
           <Link
             key={artist.id}
-            to={`../art-history/${artist.id}`}
+            to={`../${artist.id}`}
             className={
               'm-1 px-2 bg-gray-200 inline-block rounded-xl' +
               (artist.id === activeArtist.id ? ' bg-gray-400' : '')
