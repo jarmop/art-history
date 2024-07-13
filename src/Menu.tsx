@@ -4,7 +4,7 @@ import {
   getArtistCentury,
   getArtistLabel,
   useActiveArtist,
-} from './artists'
+} from './useArtists'
 import { Link } from 'react-router-dom'
 
 export function Menu() {

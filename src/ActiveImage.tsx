@@ -1,10 +1,9 @@
-import { ImageData } from './images'
+import { useImages } from './images'
 
 interface ActiveImageProps {
   showFullImage: boolean
   setActiveImage: React.Dispatch<React.SetStateAction<number | undefined>>
   setShowFullImage: React.Dispatch<React.SetStateAction<boolean>>
-  images: ImageData[]
   activeImage: number
 }
 
@@ -12,9 +11,10 @@ export function ActiveImage({
   showFullImage,
   setActiveImage,
   setShowFullImage,
-  images,
   activeImage,
 }: ActiveImageProps) {
+  const { images } = useImages()
+
   return (
     <div
       className={

@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react'
-import { useImages } from './images'
 import {
   Artist,
   getArtistLabel,
   orderedArtists,
   useActiveArtist,
-} from './artists'
+} from './useArtists'
 import { useKeyboard } from './useKeyboard'
 import { ActiveImage } from './ActiveImage'
 import { Menu } from './Menu'
@@ -15,7 +14,6 @@ function App() {
   const { activeArtist, setActiveArtist } = useActiveArtist()
   const [activeImage, setActiveImage] = useState<number>()
   const [showFullImage, setShowFullImage] = useState(false)
-  const { isPending, error, images } = useImages(activeArtist.id)
 
   const setActiveArtistCb = useCallback(
     (getNewArtist: (artist: Artist) => Artist) => {
@@ -24,11 +22,7 @@ function App() {
     [activeArtist, setActiveArtist]
   )
 
-  useKeyboard(orderedArtists, images, setActiveImage, setActiveArtistCb)
-
-  if (isPending) return 'Loading...'
-
-  if (error) return 'An error has occurred: ' + error.message
+  useKeyboard(orderedArtists, setActiveImage, setActiveArtistCb)
 
   return (
     <>
@@ -37,7 +31,6 @@ function App() {
           showFullImage={showFullImage}
           setActiveImage={setActiveImage}
           setShowFullImage={setShowFullImage}
-          images={images}
           activeImage={activeImage}
         />
       )}
@@ -48,7 +41,7 @@ function App() {
 
           <h1 className="m-4 text-4xl">{getArtistLabel(activeArtist)}</h1>
 
-          <Gallery images={images} setActiveImage={setActiveImage} />
+          <Gallery setActiveImage={setActiveImage} />
         </>
       )}
     </>

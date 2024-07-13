@@ -1,12 +1,17 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { ImageData } from './images'
+import { useImages } from './images'
 
 interface GalleryProps {
-  images: ImageData[]
   setActiveImage: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-export function Gallery({ images, setActiveImage }: GalleryProps) {
+export function Gallery({ setActiveImage }: GalleryProps) {
+  const { isPending, error, images } = useImages()
+
+  if (isPending) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
   return (
     <div className="grid grid-cols-gallery gap-[1px] justify-items-center">
       {images.map((image, i) => (

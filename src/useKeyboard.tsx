@@ -1,16 +1,17 @@
 import { useEffect } from 'react'
-import { Artist } from './artists'
-import { ImageData } from './images'
+import { useImages } from './images'
+import { Artist } from './useArtists'
 
 const incrementRange = (value: number, max: number) =>
   value < 0 ? max : value > max ? 0 : value
 
 export function useKeyboard(
   orderedArtists: Artist[],
-  images: ImageData[],
   setActiveImage: React.Dispatch<React.SetStateAction<number | undefined>>,
-  setActiveArtist: (getNewArtist: (artist: Artist) => Artist) => void 
+  setActiveArtist: (getNewArtist: (artist: Artist) => Artist) => void
 ) {
+  const { images } = useImages()
+
   useEffect(() => {
     const resetActiveImage = () =>
       setActiveImage((i) => (i !== undefined ? 0 : i))
