@@ -1,31 +1,20 @@
-import { useQuery } from '@tanstack/react-query'
-import { fetchImages, fetchImageTitles } from './wikipedia-api'
 import { useActiveArtistId } from './useArtists'
+import { useQuery } from '@tanstack/react-query'
+import { ImageData } from './types'
+import * as wikipedia from './wikipedia-api'
+import * as storage from './storage'
 
-export type ImageData = {
-  url: string
-  thumbUrl: string
-  largeUrl: string
-}
-
-export const useImages = () => {
+export function useImages() {
   const activeArtistId = useActiveArtistId()
 
   const { isPending, error, data } = useQuery({
     queryKey: ['images', activeArtistId],
     queryFn: () =>
-      fetchImageTitles(activeArtistId).then((titles) =>
-        Promise.all([
-          fetchImages(titles, 200, 200),
-          fetchImages(titles, 1200, 1920),
-        ]).then(([thumbImages, largeImages]) => {
-          return Object.keys(thumbImages).map((url) => ({
-            url: url,
-            thumbUrl: thumbImages[url],
-            largeUrl: largeImages[url],
-          }))
-        })
-      ),
+      storage.getArtistImages(activeArtistId) ||
+      wikipedia.fetchArtistImages(activeArtistId).then((data) => {
+        storage.setArtistImages(activeArtistId, data)
+        return data
+      }),
     staleTime: Infinity,
     retry: false,
   })
