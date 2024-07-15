@@ -1,5 +1,23 @@
 export const artists = [
   {
+    id: 'Bonaventura_Berlinghieri',
+    name: 'Bonaventura Berlinghieri',
+    birth: 1210,
+    death: 1287,
+  },
+  {
+    id: 'Nicola_Pisano',
+    name: 'Nicola Pisano',
+    birth: 1220,
+    death: 1284,
+  },
+  {
+    id: 'Coppo_di_Marcovaldo',
+    name: 'Coppo di Marcovaldo',
+    birth: 1225,
+    death: 1276,
+  },
+  {
     id: 'Cimabue',
     name: 'Cimabue',
     birth: 1240,
@@ -16,6 +34,12 @@ export const artists = [
     name: 'Giotto',
     birth: 1267,
     death: 1337,
+  },
+  {
+    id: 'Lorenzo_Maitani',
+    name: 'Lorenzo Maitani',
+    birth: 1275,
+    death: 1330,
   },
   {
     id: 'Simone_Martini',
@@ -144,6 +168,18 @@ export const artists = [
     death: 1519,
   },
   {
+    id: 'Albrecht_Dürer',
+    name: 'Albrecht Dürer',
+    birth: 1471,
+    death: 1528,
+  },
+  {
+    id: 'Lucas_Cranach_the_Elder',
+    name: 'Lucas Cranach the Elder',
+    birth: 1472,
+    death: 1553,
+  },
+  {
     id: 'Michelangelo',
     name: 'Michelangelo',
     birth: 1475,
@@ -175,7 +211,7 @@ export const artists = [
   },
   {
     id: 'Pieter_Bruegel_the_Elder',
-    name: 'Pieter Bruegel',
+    name: 'Pieter Bruegel the Elder',
     birth: 1525,
     death: 1569,
   },
